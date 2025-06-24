@@ -29,7 +29,7 @@
   );
   --fade-duration: 0.3s;
   --transition-all: all var(--fade-duration) ease-out;
-  --slot-width: 480px;
+  --slot-width: 320px;
   --slot-dim: calc(var(--slot-width) / 5);
   --slot-height: calc(var(--slot-dim) * 5);
   --shadow-cute: 0 0 20px rgba(255, 118, 117, 0.4), 0 0 40px rgba(162, 155, 254, 0.3);
@@ -58,6 +58,9 @@ body {
   justify-content: center;
   flex-direction: column;
   animation: cuteBackgroundShift 10s ease-in-out infinite;
+  font-size: 13px;
+  transform: scale(0.9);
+  transform-origin: center center;
 }
 
 /* Cute background animation */
@@ -133,15 +136,15 @@ body,
 
 .perspective{
   width: 100%;
-  max-width: 800px;
-  margin-top: 48px;
-  transform: scale(0.85);
+  max-width: 600px;
+  margin-top: 20px;
+  transform: scale(0.65);
   animation: gentleFloat 4s ease-in-out infinite;
   position: relative; 
   display: flex;              /* lay out slot-container and side-payout-info side by side */
   flex-direction: row;        /* default, but make sure it's not overridden elsewhere */
   align-items: center;        /* vertically center both panels */
-  gap: 20px;                  /* 20px gap between reels and payouts */
+  gap: 12px;                  /* reduced gap between reels and payouts */
 }
 
 /* OLD CSS REMOVED - CONFLICTED WITH NEW STRUCTURE */
@@ -2897,7 +2900,7 @@ body {
 .monitor-header {
   width: var(--slot-width);
   background: linear-gradient(135deg, var(--accent-pink) 0%, var(--accent-purple) 100%);
-  padding: 12px 0;
+  padding: 8px 0;
   border-bottom: 3px solid var(--accent-mint);
   text-align: center;
   border-radius: 20px 20px 0 0;
@@ -2907,7 +2910,7 @@ body {
 
 .monitor-header h1 {
   font-family: var(--font-pixel);
-  font-size: 1.2rem;
+  font-size: 1rem;
   color: #ffffff;
   text-shadow:
     0 0 4px rgba(255, 255, 255, 0.8),
@@ -2930,8 +2933,8 @@ body {
 .monitor-content {
   display: flex;
   flex-direction: row;
-  gap: 20px;
-  padding: 16px;
+  gap: 15px;
+  padding: 12px;
   align-items: flex-start;
   justify-content: center;
 }
@@ -3028,14 +3031,14 @@ body {
   left: 50%;
   transform: translate(-50%, -50%);
   font-family: var(--font-pixel);
-  font-size: 4.5rem;                     /* a touch bigger */
+  font-size: 3.5rem;                     /* smaller countdown text */
   color: #FFFFFF;                        /* pure white */
   text-shadow:
     0 0 8px #FFFFFF,                     /* white glow */
     0 0 16px #00E5FF,                    /* cyan neon accent */
     0 0 24px #FF3EBF;                    /* magenta neon accent */
   background: rgba(0, 0, 0, 0.6);        /* semi-transparent black pill */
-  padding: 0.3em 0.6em;                  /* extra breathing room */
+  padding: 0.2em 0.4em;                  /* reduced breathing room */
   border-radius: 0.3em;                  /* round corners */
   pointer-events: none;
   opacity: 0;                            /* still controlled by JS for fade in/out */
@@ -3628,10 +3631,10 @@ body {
 
 .nav-link {
   font-family: 'Press Start 2P', monospace;
-  font-size: 12px;
+  font-size: 10px;
   color: #e0e0e0;
   text-decoration: none;
-  padding: 15px 25px;
+  padding: 10px 18px;
   border: 1px solid rgba(0, 229, 255, 0.3);
   border-radius: 12px;
   background: linear-gradient(145deg, 
@@ -3641,7 +3644,7 @@ body {
   position: relative;
   overflow: hidden;
   text-align: center;
-  min-width: 120px;
+  min-width: 100px;
 }
 
 .nav-link::before {
@@ -3693,8 +3696,8 @@ body {
   }
   
   .nav-link {
-    font-size: 10px;
-    padding: 12px 20px;
+    font-size: 8px;
+    padding: 8px 16px;
     min-width: auto;
   }
 }
@@ -4251,10 +4254,10 @@ body {
     0 0 30px rgba(255, 215, 0, 0.7),
     0 4px 20px rgba(0, 0, 0, 0.5),
     inset 0 0 20px rgba(255, 255, 255, 0.2);
-  padding: 15px 0;
+  padding: 8px 0;
   text-align: center;
   animation: prizePoolPulse 3s ease-in-out infinite;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 .top-prize-pool .pool-display {
@@ -4266,14 +4269,14 @@ body {
 
 .pool-title {
   font-family: 'Press Start 2P', monospace;
-  font-size: 18px;
+  font-size: 12px;
   color: #FFD700;
   text-shadow: 
     0 0 10px #FFD700,
     0 0 20px #FF8C00,
     2px 2px 4px rgba(0, 0, 0, 0.8);
   animation: titleFlicker 2s ease-in-out infinite alternate;
-  letter-spacing: 2px;
+  letter-spacing: 1px;
 }
 
 .pool-amounts {
@@ -4286,7 +4289,7 @@ body {
 
 .pool-sol {
   font-family: 'Press Start 2P', monospace;
-  font-size: 24px;
+  font-size: 16px;
   color: #00FFE5;
   text-shadow: 
     0 0 15px #00FFE5,
@@ -4307,7 +4310,7 @@ body {
 
 .pool-usd {
   font-family: 'Press Start 2P', monospace;
-  font-size: 24px;
+  font-size: 16px;
   color: #32CD32;
   text-shadow: 
     0 0 15px #32CD32,
