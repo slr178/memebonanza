@@ -297,10 +297,85 @@
             background: #2ecc71 !important;
             cursor: default;
         }
+
+        /* Password Protection Styles */
+        .password-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+
+        .password-container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            color: white;
+            min-width: 400px;
+        }
+
+        .password-container h1 {
+            margin-bottom: 30px;
+            font-size: 2em;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+        }
+
+        .password-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        #admin-password {
+            padding: 15px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 16px;
+            text-align: center;
+        }
+
+        #admin-password::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        #admin-password:focus {
+            outline: none;
+            border-color: #74b9ff;
+            box-shadow: 0 0 15px rgba(116, 185, 255, 0.3);
+        }
+
+        .password-error {
+            color: #ff6b6b;
+            font-weight: bold;
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
-    <div class="admin-container">
+    <!-- Admin Password Protection -->
+    <div id="password-screen" class="password-screen">
+        <div class="password-container">
+            <h1>🔒 Admin Access</h1>
+            <div class="password-form">
+                <input type="password" id="admin-password" placeholder="Enter admin password" autocomplete="off">
+                <button onclick="checkPassword()">Access Admin Panel</button>
+                <div id="password-error" class="password-error"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="admin-content" class="admin-container" style="display: none;">
         <h1>🔧 Unified Admin Panel</h1>
 
         <!-- Firebase Status -->
@@ -445,7 +520,7 @@
 
         <!-- Navigation -->
         <a href="index.html" class="nav-link">🎰 Back to Casino</a>
-    </div>
+    </div> <!-- End admin-content -->
 
     <!-- Required Libraries -->
     <script src="https://unpkg.com/@solana/web3.js@latest/lib/index.iife.js"></script>
@@ -1317,6 +1392,57 @@
                 });
               },err=>console.error('🔥 Payout listener error:',err));
         })();
+
+        // ──────────────────────────────────────────────────────────────────────────
+        // ADMIN PASSWORD PROTECTION
+        // ──────────────────────────────────────────────────────────────────────────
+        
+        // Set your admin password here (change this!)
+        const ADMIN_PASSWORD = "casino2024admin";
+        
+        function checkPassword() {
+            const inputPassword = document.getElementById('admin-password').value;
+            const errorDiv = document.getElementById('password-error');
+            
+            if (inputPassword === ADMIN_PASSWORD) {
+                // Correct password
+                document.getElementById('password-screen').style.display = 'none';
+                document.getElementById('admin-content').style.display = 'block';
+                
+                // Store session
+                sessionStorage.setItem('adminAuthenticated', 'true');
+                
+                console.log('🔓 Admin access granted');
+            } else {
+                // Wrong password
+                errorDiv.textContent = '❌ Incorrect password';
+                document.getElementById('admin-password').value = '';
+                console.log('🔒 Admin access denied');
+            }
+        }
+        
+        // Check if already authenticated
+        function checkAdminSession() {
+            if (sessionStorage.getItem('adminAuthenticated') === 'true') {
+                document.getElementById('password-screen').style.display = 'none';
+                document.getElementById('admin-content').style.display = 'block';
+            }
+        }
+        
+        // Allow Enter key to submit password
+        document.addEventListener('DOMContentLoaded', function() {
+            checkAdminSession();
+            
+            const passwordInput = document.getElementById('admin-password');
+            if (passwordInput) {
+                passwordInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        checkPassword();
+                    }
+                });
+            }
+        });
+        
     </script>
 </body>
 </html> 
