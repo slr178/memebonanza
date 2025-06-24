@@ -1,10 +1,10 @@
-import express from 'express';
-import cookieParser from 'cookie-parser';
-import cors from 'cors';
-import nacl from 'tweetnacl';
-import bs58 from 'bs58';
-import { Connection, PublicKey } from '@solana/web3.js';
-import crypto from 'crypto';
+const express = require('express');
+const cookieParser = require('cookie-parser');
+const cors = require('cors');
+const nacl = require('tweetnacl');
+const bs58 = require('bs58');
+const { Connection, PublicKey } = require('@solana/web3.js');
+const crypto = require('crypto');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -475,4 +475,4 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 // Export for Vercel serverless deployment
-export default app; 
+module.exports = app; 
