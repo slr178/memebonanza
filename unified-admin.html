@@ -520,6 +520,7 @@
 
         <!-- Navigation -->
         <a href="index.html" class="nav-link">🎰 Back to Casino</a>
+        <button onclick="adminLogout()" class="nav-link danger-btn" style="margin-left: 10px; border: none;">🔒 Logout</button>
     </div> <!-- End admin-content -->
 
     <!-- Required Libraries -->
@@ -1394,40 +1395,97 @@
         })();
 
         // ──────────────────────────────────────────────────────────────────────────
-        // ADMIN PASSWORD PROTECTION
+        // SECURE ADMIN AUTHENTICATION (SERVER-SIDE)
         // ──────────────────────────────────────────────────────────────────────────
         
-        // Set your admin password here (change this!)
-        const ADMIN_PASSWORD = "casino2024admin";
-        
-        function checkPassword() {
+        async function checkPassword() {
             const inputPassword = document.getElementById('admin-password').value;
             const errorDiv = document.getElementById('password-error');
+            const submitButton = document.querySelector('.password-form button');
             
-            if (inputPassword === ADMIN_PASSWORD) {
-                // Correct password
-                document.getElementById('password-screen').style.display = 'none';
-                document.getElementById('admin-content').style.display = 'block';
-                
-                // Store session
-                sessionStorage.setItem('adminAuthenticated', 'true');
-                
-                console.log('🔓 Admin access granted');
-            } else {
-                // Wrong password
-                errorDiv.textContent = '❌ Incorrect password';
-                document.getElementById('admin-password').value = '';
-                console.log('🔒 Admin access denied');
+            if (!inputPassword) {
+                errorDiv.textContent = '❌ Please enter a password';
+                return;
+            }
+
+            // Show loading state
+            submitButton.textContent = 'Authenticating...';
+            submitButton.disabled = true;
+            errorDiv.textContent = '';
+            
+            try {
+                const response = await fetch('/api/admin-auth', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    credentials: 'include',
+                    body: JSON.stringify({ password: inputPassword })
+                });
+
+                if (response.ok) {
+                    // Authentication successful
+                    document.getElementById('password-screen').style.display = 'none';
+                    document.getElementById('admin-content').style.display = 'block';
+                    console.log('🔓 Admin access granted via secure authentication');
+                } else {
+                    // Authentication failed
+                    const error = await response.json().catch(() => ({}));
+                    errorDiv.textContent = '❌ ' + (error.error || 'Authentication failed');
+                    document.getElementById('admin-password').value = '';
+                    console.log('🔒 Admin access denied');
+                }
+            } catch (error) {
+                console.error('Authentication error:', error);
+                errorDiv.textContent = '❌ Authentication service unavailable';
+            } finally {
+                // Reset button
+                submitButton.textContent = 'Access Admin Panel';
+                submitButton.disabled = false;
             }
         }
         
-        // Check if already authenticated
-        function checkAdminSession() {
-            if (sessionStorage.getItem('adminAuthenticated') === 'true') {
-                document.getElementById('password-screen').style.display = 'none';
-                document.getElementById('admin-content').style.display = 'block';
+        // Check if already authenticated via server session
+        async function checkAdminSession() {
+            try {
+                const response = await fetch('/api/admin-verify', {
+                    credentials: 'include'
+                });
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    if (data.authenticated) {
+                        document.getElementById('password-screen').style.display = 'none';
+                        document.getElementById('admin-content').style.display = 'block';
+                        console.log('🔓 Admin session restored');
+                        return;
+                    }
+                }
+            } catch (error) {
+                console.warn('Session check failed:', error);
             }
-        }
+            
+                         // Show password screen if not authenticated
+             document.getElementById('password-screen').style.display = 'flex';
+             document.getElementById('admin-content').style.display = 'none';
+         }
+
+         // Admin logout function
+         async function adminLogout() {
+             try {
+                 await fetch('/api/admin-logout', {
+                     method: 'POST',
+                     credentials: 'include'
+                 });
+             } catch (error) {
+                 console.warn('Logout request failed:', error);
+             }
+
+             // Always show login screen regardless of API result
+             document.getElementById('password-screen').style.display = 'flex';
+             document.getElementById('admin-content').style.display = 'none';
+             document.getElementById('admin-password').value = '';
+             
+             console.log('🔒 Admin logged out');
+         }
         
         // Allow Enter key to submit password
         document.addEventListener('DOMContentLoaded', function() {
