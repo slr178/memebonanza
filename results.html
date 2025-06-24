@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Results - SUNSET SLOTS</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="background-gradient"></div>
+
+    <!-- ─── NAVIGATION MENU ─── -->
+    <nav class="main-navigation" style="margin-top: 20px;">
+        <div class="nav-container">
+            <a href="index.html" class="nav-link">🎰 Play</a>
+            <a href="how-it-works.html" class="nav-link">📖 How It Works</a>
+            <a href="faq.html" class="nav-link">❓ FAQ</a>
+            <a href="results.html" class="nav-link active">📊 Results</a>
+        </div>
+    </nav>
+
+    <!-- ─── PAGE HEADER ─── -->
+    <div class="game-screen">
+        <div class="pixel-header">
+            <h1>SUNSET SLOTS</h1>
+            <div class="subtitle">Your Game Statistics</div>
+        </div>
+
+        <!-- ─── RESULTS SECTION ─── -->
+        <div class="info-section results">
+            <h2>📊 Your Performance Dashboard</h2>
+            <div class="results-container">
+                <div class="results-stats">
+                    <div class="stat-card">
+                        <h3>Total Spins</h3>
+                        <span id="total-spins">0</span>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Total Wins</h3>
+                        <span id="total-wins">0</span>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Win Rate</h3>
+                        <span id="win-rate">0%</span>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Biggest Win</h3>
+                        <span id="biggest-win">0%</span>
+                    </div>
+                </div>
+                <div class="results-history">
+                    <h3>🎰 Recent Spin History</h3>
+                    <div class="history-list" id="spin-history">
+                        <div class="history-item placeholder">
+                            <span>No spins recorded yet. Start playing to see your results here!</span>
+                        </div>
+                    </div>
+                    <button class="clear-history-btn" id="clear-history">Clear All History</button>
+                </div>
+            </div>
+
+            <!-- Additional Stats Section -->
+            <h2>🎯 Detailed Analytics</h2>
+            <div class="info-grid">
+                <div class="info-card">
+                    <h3>🔥 Hot Streak</h3>
+                    <p>Your current winning streak: <span id="win-streak">0</span> wins<br>
+                    Best streak ever: <span id="best-streak">0</span> wins</p>
+                </div>
+                <div class="info-card">
+                    <h3>💰 Total Winnings</h3>
+                    <p>Lifetime winnings: <span id="total-winnings">0.00%</span><br>
+                    Average win: <span id="average-win">0.00%</span></p>
+                </div>
+                <div class="info-card">
+                    <h3>🎰 Favorite Symbol</h3>
+                    <p>Most frequent winner: <span id="favorite-symbol">None yet</span><br>
+                    Times won: <span id="symbol-count">0</span></p>
+                </div>
+                <div class="info-card">
+                    <h3>⚡ Game Time</h3>
+                    <p>Playing since: <span id="first-spin">Never</span><br>
+                    Last activity: <span id="last-spin">Never</span></p>
+                </div>
+            </div>
+
+            <!-- Win Distribution Chart -->
+            <h2>📈 Win Distribution</h2>
+            <div class="win-distribution">
+                <div class="distribution-item">
+                    <span class="distribution-label">No Win</span>
+                    <div class="distribution-bar">
+                        <div class="distribution-fill" id="no-win-bar" style="width: 0%;"></div>
+                    </div>
+                    <span class="distribution-value" id="no-win-count">0</span>
+                </div>
+                <div class="distribution-item">
+                    <span class="distribution-label">Small Win (0-1%)</span>
+                    <div class="distribution-bar">
+                        <div class="distribution-fill small-win" id="small-win-bar" style="width: 0%;"></div>
+                    </div>
+                    <span class="distribution-value" id="small-win-count">0</span>
+                </div>
+                <div class="distribution-item">
+                    <span class="distribution-label">Big Win (1-10%)</span>
+                    <div class="distribution-bar">
+                        <div class="distribution-fill big-win" id="big-win-bar" style="width: 0%;"></div>
+                    </div>
+                    <span class="distribution-value" id="big-win-count">0</span>
+                </div>
+                <div class="distribution-item">
+                    <span class="distribution-label">Mega Win (10%+)</span>
+                    <div class="distribution-bar">
+                        <div class="distribution-fill mega-win" id="mega-win-bar" style="width: 0%;"></div>
+                    </div>
+                    <span class="distribution-value" id="mega-win-count">0</span>
+                </div>
+            </div>
+
+            <div class="back-to-game">
+                <a href="index.html" class="nav-link" style="font-size: 14px; padding: 20px 40px;">
+                    🎰 Back to Game
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Results tracking variables
+        let gameStats = {
+            totalSpins: 0,
+            totalWins: 0,
+            biggestWin: 0,
+            spinHistory: [],
+            winStreak: 0,
+            bestStreak: 0,
+            totalWinnings: 0,
+            symbolStats: {},
+            firstSpinDate: null,
+            lastSpinDate: null
+        };
+
+        // Load stats from localStorage
+        function loadStats() {
+            const saved = localStorage.getItem('slotMachineStats');
+            if (saved) {
+                const savedStats = JSON.parse(saved);
+                // Merge with default structure to handle new properties
+                gameStats = { ...gameStats, ...savedStats };
+                updateAllDisplays();
+            }
+        }
+
+        // Update all stat displays
+        function updateAllDisplays() {
+            updateBasicStats();
+            updateHistoryDisplay();
+            updateDetailedStats();
+            updateWinDistribution();
+        }
+
+        // Update basic stats display
+        function updateBasicStats() {
+            const totalSpinsEl = document.getElementById('total-spins');
+            const totalWinsEl = document.getElementById('total-wins');
+            const winRateEl = document.getElementById('win-rate');
+            const biggestWinEl = document.getElementById('biggest-win');
+            
+            if (totalSpinsEl) totalSpinsEl.textContent = gameStats.totalSpins;
+            if (totalWinsEl) totalWinsEl.textContent = gameStats.totalWins;
+            if (winRateEl) {
+                winRateEl.textContent = gameStats.totalSpins > 0 ? 
+                    Math.round((gameStats.totalWins / gameStats.totalSpins) * 100) + '%' : '0%';
+            }
+            if (biggestWinEl) biggestWinEl.textContent = gameStats.biggestWin + '%';
+        }
+
+        // Update detailed stats
+        function updateDetailedStats() {
+            document.getElementById('win-streak').textContent = gameStats.winStreak || 0;
+            document.getElementById('best-streak').textContent = gameStats.bestStreak || 0;
+            document.getElementById('total-winnings').textContent = (gameStats.totalWinnings || 0).toFixed(2) + '%';
+            
+            const avgWin = gameStats.totalWins > 0 ? (gameStats.totalWinnings / gameStats.totalWins) : 0;
+            document.getElementById('average-win').textContent = avgWin.toFixed(2) + '%';
+            
+            // Find most frequent winning symbol
+            let favoriteSymbol = 'None yet';
+            let maxCount = 0;
+            if (gameStats.symbolStats) {
+                for (const [symbol, count] of Object.entries(gameStats.symbolStats)) {
+                    if (count > maxCount) {
+                        maxCount = count;
+                        favoriteSymbol = symbol;
+                    }
+                }
+            }
+            document.getElementById('favorite-symbol').textContent = favoriteSymbol;
+            document.getElementById('symbol-count').textContent = maxCount;
+            
+            // Update dates
+            document.getElementById('first-spin').textContent = gameStats.firstSpinDate ? 
+                new Date(gameStats.firstSpinDate).toLocaleDateString() : 'Never';
+            document.getElementById('last-spin').textContent = gameStats.lastSpinDate ? 
+                new Date(gameStats.lastSpinDate).toLocaleString() : 'Never';
+        }
+
+        // Update win distribution chart
+        function updateWinDistribution() {
+            let noWin = 0, smallWin = 0, bigWin = 0, megaWin = 0;
+            
+            gameStats.spinHistory.forEach(spin => {
+                if (!spin.isWin) {
+                    noWin++;
+                } else if (spin.payout < 1) {
+                    smallWin++;
+                } else if (spin.payout < 10) {
+                    bigWin++;
+                } else {
+                    megaWin++;
+                }
+            });
+            
+            const total = gameStats.totalSpins || 1;
+            
+            // Update bars
+            document.getElementById('no-win-bar').style.width = (noWin / total * 100) + '%';
+            document.getElementById('small-win-bar').style.width = (smallWin / total * 100) + '%';
+            document.getElementById('big-win-bar').style.width = (bigWin / total * 100) + '%';
+            document.getElementById('mega-win-bar').style.width = (megaWin / total * 100) + '%';
+            
+            // Update counts
+            document.getElementById('no-win-count').textContent = noWin;
+            document.getElementById('small-win-count').textContent = smallWin;
+            document.getElementById('big-win-count').textContent = bigWin;
+            document.getElementById('mega-win-count').textContent = megaWin;
+        }
+
+        // Update history display
+        function updateHistoryDisplay() {
+            const historyList = document.getElementById('spin-history');
+            if (!historyList) return;
+            
+            if (gameStats.spinHistory.length === 0) {
+                historyList.innerHTML = '<div class="history-item placeholder"><span>No spins recorded yet. Start playing to see your results here!</span></div>';
+                return;
+            }
+            
+            historyList.innerHTML = gameStats.spinHistory.slice(0, 15).map(item => {
+                const payoutClass = item.payout >= 10 ? 'big' : '';
+                const itemClass = item.isWin ? (item.payout >= 10 ? 'big-win' : 'win') : '';
+                
+                return `
+                    <div class="history-item ${itemClass}">
+                        <div class="history-symbols">${item.symbols}</div>
+                        <div class="history-payout ${payoutClass}">
+                            ${item.isWin ? '+' + item.payout + '%' : 'No Win'}
+                        </div>
+                        <div class="history-time">${item.timestamp}</div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Clear history button
+        function initializeClearHistory() {
+            const clearBtn = document.getElementById('clear-history');
+            if (clearBtn) {
+                clearBtn.addEventListener('click', () => {
+                    if (confirm('Are you sure you want to clear ALL your game statistics and history? This cannot be undone!')) {
+                        gameStats = {
+                            totalSpins: 0,
+                            totalWins: 0,
+                            biggestWin: 0,
+                            spinHistory: [],
+                            winStreak: 0,
+                            bestStreak: 0,
+                            totalWinnings: 0,
+                            symbolStats: {},
+                            firstSpinDate: null,
+                            lastSpinDate: null
+                        };
+                        localStorage.setItem('slotMachineStats', JSON.stringify(gameStats));
+                        updateAllDisplays();
+                        alert('All statistics have been cleared!');
+                    }
+                });
+            }
+        }
+
+        // Auto-refresh data every 5 seconds
+        function startAutoRefresh() {
+            setInterval(() => {
+                loadStats();
+            }, 5000);
+        }
+
+        // Initialize everything when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            loadStats();
+            initializeClearHistory();
+            startAutoRefresh();
+        });
+    </script>
+</body>
+</html> 

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Auto-Spin Debug Test</title>
+  <style>
+    /* Minimal styling just to see the button */
+    body {
+      background: #222;
+      color: #eee;
+      font-family: sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      flex-direction: column;
+    }
+    .spin-container {
+      margin-top: 20px;
+    }
+    .autospin-btn {
+      background: #ff3ebf;
+      border: none;
+      color: white;
+      padding: 10px 20px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-left: 8px;
+    }
+    .autospin-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    #autospin-count {
+      width: 60px;
+      font-size: 16px;
+      text-align: center;
+    }
+    #spin-btn {
+      background: #00e5ff;
+      border: none;
+      color: #222;
+      padding: 10px 20px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    #spin-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Auto-Spin debug</h1>
+  <div class="spin-container">
+
+    <!-- A dummy "Spin" button (calls spinOnce). -->
+    <button id="spin-btn">SPIN</button>
+
+    <!-- Numeric input to choose how many times to auto-spin -->
+    <input id="autospin-count" type="number" value="5" min="1" />
+
+    <!-- The Auto-Spin button itself -->
+    <button id="btn-autospin" class="autospin-btn">
+      AUTO-SPIN × 
+    </button>
+  </div>
+
+  <!-- Dummy <audio> tag pointing at autospinmusic.mp3 in the same folder -->
+  <audio id="auto-spin-music" loop>
+    <source src="autospinmusic.mp3" type="audio/mpeg" />
+    <!-- If you have autospinmusic.wav, add it here too -->
+    <source src="autospinmusic.wav" type="audio/wav" />
+    Your browser doesn't support this audio element.
+  </audio>
+
+  <script>
+    //
+    // ── STEP 1: Grab references to our elements
+    //
+    const spinBtn = document.getElementById("spin-btn");
+    const btnAutospin = document.getElementById("btn-autospin");
+    const inputAutospinCount = document.getElementById("autospin-count");
+    const autoMusic = document.getElementById("auto-spin-music");
+
+    //
+    // ── STEP 2: A dummy spinOnce() that returns a resolved Promise after 500ms.
+    //               (In your real code, replace this with your actual spinOnce(...) that does the reels/cascades.)
+    //
+    function spinOnce({ skipBuildup = false } = {}) {
+      return new Promise(resolve => {
+        console.log("⏳ spinOnce() called. skipBuildup=", skipBuildup);
+        // Simulate the time it takes for a single spin + quick cascade
+        setTimeout(() => {
+          console.log("✅ spinOnce() finished.");
+          resolve();
+        }, 500);
+      });
+    }
+
+    //
+    // ── STEP 3: Wire up the single-SPIN button so you can compare behavior
+    //
+    spinBtn.addEventListener("click", async () => {
+      console.log("SPIN clicked (manual).");
+      spinBtn.disabled = true;
+      // Simulate calling spinOnce with countdown, etc.
+      await spinOnce({ skipBuildup: false });
+      spinBtn.disabled = false;
+      console.log("SPIN complete.");
+    });
+
+    //
+    // ── STEP 4: Wire up "AUTO-SPIN" exactly as we want.
+    //
+    btnAutospin.addEventListener("click", async () => {
+      console.log("AUTO-SPIN clicked!");
+
+      // 1) Read count from input
+      let count = parseInt(inputAutospinCount.value, 10);
+      if (isNaN(count) || count < 1) {
+        count = 1;
+        inputAutospinCount.value = "1";
+      }
+      console.log(" → Will auto-spin this many times:", count);
+
+      // 2) Disable both buttons
+      spinBtn.disabled = true;
+      btnAutospin.disabled = true;
+
+      // 3) Pause any background audio you might have (for this test, we have none)…
+      //    Then start the auto-spin music
+      autoMusic.currentTime = 0;
+      autoMusic.play().catch(e => {
+        console.warn("🔈 Autospin audio play failed:", e);
+      });
+
+      // 4) Loop N times
+      for (let i = 0; i < count; i++) {
+        console.log(`▶️  Auto-spin iteration ${i+1} of ${count}`);
+        await spinOnce({ skipBuildup: true });
+
+        // On the last iteration, stop the auto-spin music and re-enable
+        if (i === count - 1) {
+          console.log("🏁 Last auto-spin. Stopping music and re-enabling buttons.");
+          autoMusic.pause();
+          autoMusic.currentTime = 0;
+          spinBtn.disabled = false;
+          btnAutospin.disabled = false;
+        }
+      }
+    });
+
+    //
+    // ── STEP 5: On page load, log to confirm elements exist
+    //
+    window.addEventListener("DOMContentLoaded", () => {
+      console.log("✅ DOMContentLoaded: elements should be present.");
+      console.log("spinBtn:", spinBtn);
+      console.log("btnAutospin:", btnAutospin);
+      console.log("inputAutospinCount:", inputAutospinCount);
+      console.log("autoMusic:", autoMusic);
+    });
+  </script>
+</body>
+</html> 
