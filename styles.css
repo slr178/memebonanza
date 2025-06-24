@@ -29,7 +29,7 @@
   );
   --fade-duration: 0.3s;
   --transition-all: all var(--fade-duration) ease-out;
-  --slot-width: 240px;
+  --slot-width: 180px;
   --slot-dim: calc(var(--slot-width) / 5);
   --slot-height: calc(var(--slot-dim) * 5);
   --shadow-cute: 0 0 20px rgba(255, 118, 117, 0.4), 0 0 40px rgba(162, 155, 254, 0.3);
@@ -58,7 +58,7 @@ body {
   justify-content: center;
   flex-direction: column;
   animation: cuteBackgroundShift 10s ease-in-out infinite;
-  font-size: 10px;
+  font-size: 8px;
 }
 
 /* Cute background animation */
@@ -134,15 +134,15 @@ body,
 
 .perspective{
   width: 100%;
-  max-width: 350px;
-  margin-top: 5px;
-  transform: scale(0.25);
+  max-width: 280px;
+  margin-top: 3px;
+  transform: scale(0.15);
   animation: gentleFloat 4s ease-in-out infinite;
   position: relative; 
   display: flex;              /* lay out slot-container and side-payout-info side by side */
   flex-direction: row;        /* default, but make sure it's not overridden elsewhere */
   align-items: center;        /* vertically center both panels */
-  gap: 5px;                   /* reduced gap between reels and payouts */
+  gap: 3px;                   /* reduced gap between reels and payouts */
 }
 
 /* OLD CSS REMOVED - CONFLICTED WITH NEW STRUCTURE */
@@ -3211,11 +3211,11 @@ body {
   backdrop-filter: blur(10px);
   border: 2px solid var(--accent-pink);
   border-radius: 15px;
-  padding: 12px 16px;
-  width: 180px;
+  padding: 8px 12px;
+  width: 150px;
   box-shadow: 0 0 15px rgba(255, 118, 117, 0.3);
   font-family: 'Poppins', sans-serif;
-  font-size: 0.75rem;
+  font-size: 0.6rem;
   color: #ffffff;
   position: relative;
   z-index: 2;
@@ -3629,10 +3629,10 @@ body {
 
 .nav-link {
   font-family: 'Press Start 2P', monospace;
-  font-size: 12px;
+  font-size: 8px;
   color: #e0e0e0;
   text-decoration: none;
-  padding: 15px 25px;
+  padding: 10px 15px;
   border: 1px solid rgba(0, 229, 255, 0.3);
   border-radius: 12px;
   background: linear-gradient(145deg, 
@@ -3642,7 +3642,7 @@ body {
   position: relative;
   overflow: hidden;
   text-align: center;
-  min-width: 120px;
+  min-width: 80px;
 }
 
 .nav-link::before {
@@ -4252,10 +4252,10 @@ body {
     0 0 30px rgba(255, 215, 0, 0.7),
     0 4px 20px rgba(0, 0, 0, 0.5),
     inset 0 0 20px rgba(255, 255, 255, 0.2);
-  padding: 4px 0;
+  padding: 2px 0;
   text-align: center;
   animation: prizePoolPulse 3s ease-in-out infinite;
-  margin-bottom: 5px;
+  margin-bottom: 3px;
 }
 
 .top-prize-pool .pool-display {
@@ -4267,7 +4267,7 @@ body {
 
 .pool-title {
   font-family: 'Press Start 2P', monospace;
-  font-size: 8px;
+  font-size: 6px;
   color: #FFD700;
   text-shadow: 
     0 0 10px #FFD700,
@@ -4287,7 +4287,7 @@ body {
 
 .pool-sol {
   font-family: 'Press Start 2P', monospace;
-  font-size: 12px;
+  font-size: 10px;
   color: #00FFE5;
   text-shadow: 
     0 0 15px #00FFE5,
@@ -4308,7 +4308,7 @@ body {
 
 .pool-usd {
   font-family: 'Press Start 2P', monospace;
-  font-size: 12px;
+  font-size: 10px;
   color: #32CD32;
   text-shadow: 
     0 0 15px #32CD32,
