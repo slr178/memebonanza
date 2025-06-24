@@ -29,7 +29,7 @@
   );
   --fade-duration: 0.3s;
   --transition-all: all var(--fade-duration) ease-out;
-  --slot-width: 300px;
+  --slot-width: 240px;
   --slot-dim: calc(var(--slot-width) / 5);
   --slot-height: calc(var(--slot-dim) * 5);
   --shadow-cute: 0 0 20px rgba(255, 118, 117, 0.4), 0 0 40px rgba(162, 155, 254, 0.3);
@@ -58,7 +58,7 @@ body {
   justify-content: center;
   flex-direction: column;
   animation: cuteBackgroundShift 10s ease-in-out infinite;
-  font-size: 12px;
+  font-size: 10px;
 }
 
 /* Cute background animation */
@@ -134,15 +134,15 @@ body,
 
 .perspective{
   width: 100%;
-  max-width: 600px;
-  margin-top: 20px;
-  transform: scale(0.6);
+  max-width: 500px;
+  margin-top: 15px;
+  transform: scale(0.45);
   animation: gentleFloat 4s ease-in-out infinite;
   position: relative; 
   display: flex;              /* lay out slot-container and side-payout-info side by side */
   flex-direction: row;        /* default, but make sure it's not overridden elsewhere */
   align-items: center;        /* vertically center both panels */
-  gap: 10px;                  /* reduced gap between reels and payouts */
+  gap: 8px;                   /* reduced gap between reels and payouts */
 }
 
 /* OLD CSS REMOVED - CONFLICTED WITH NEW STRUCTURE */
@@ -4252,10 +4252,10 @@ body {
     0 0 30px rgba(255, 215, 0, 0.7),
     0 4px 20px rgba(0, 0, 0, 0.5),
     inset 0 0 20px rgba(255, 255, 255, 0.2);
-  padding: 8px 0;
+  padding: 6px 0;
   text-align: center;
   animation: prizePoolPulse 3s ease-in-out infinite;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
 
 .top-prize-pool .pool-display {
@@ -4267,7 +4267,7 @@ body {
 
 .pool-title {
   font-family: 'Press Start 2P', monospace;
-  font-size: 12px;
+  font-size: 10px;
   color: #FFD700;
   text-shadow: 
     0 0 10px #FFD700,
@@ -4287,7 +4287,7 @@ body {
 
 .pool-sol {
   font-family: 'Press Start 2P', monospace;
-  font-size: 16px;
+  font-size: 14px;
   color: #00FFE5;
   text-shadow: 
     0 0 15px #00FFE5,
@@ -4308,7 +4308,7 @@ body {
 
 .pool-usd {
   font-family: 'Press Start 2P', monospace;
-  font-size: 16px;
+  font-size: 14px;
   color: #32CD32;
   text-shadow: 
     0 0 15px #32CD32,
