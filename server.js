@@ -17,8 +17,10 @@ app.use(cookieParser());
 const corsOptions = {
     origin: process.env.NODE_ENV === 'production' 
         ? [
+            'https://memebonanza-jspt2lbb0-slr178s-projects.vercel.app',
             'https://memebonanza-o8x7qoboe-slr178s-projects.vercel.app',
             'https://memebonanza-gzpmqhb8f-slr178s-projects.vercel.app',
+            'https://memebonanza-r1trqripp-slr178s-projects.vercel.app',
             /\.vercel\.app$/  // Allow all Vercel subdomains
           ]
         : ['http://localhost:8000', 'http://127.0.0.1:8000'],
