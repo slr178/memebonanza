@@ -59,8 +59,6 @@ body {
   flex-direction: column;
   animation: cuteBackgroundShift 10s ease-in-out infinite;
   font-size: 10px;
-  zoom: 0.7;
-  transform-origin: center center;
 }
 
 /* Cute background animation */
@@ -136,15 +134,15 @@ body,
 
 .perspective{
   width: 100%;
-  max-width: 400px;
-  margin-top: 10px;
-  transform: scale(0.3);
+  max-width: 350px;
+  margin-top: 5px;
+  transform: scale(0.25);
   animation: gentleFloat 4s ease-in-out infinite;
   position: relative; 
   display: flex;              /* lay out slot-container and side-payout-info side by side */
   flex-direction: row;        /* default, but make sure it's not overridden elsewhere */
   align-items: center;        /* vertically center both panels */
-  gap: 6px;                   /* reduced gap between reels and payouts */
+  gap: 5px;                   /* reduced gap between reels and payouts */
 }
 
 /* OLD CSS REMOVED - CONFLICTED WITH NEW STRUCTURE */
@@ -4254,10 +4252,10 @@ body {
     0 0 30px rgba(255, 215, 0, 0.7),
     0 4px 20px rgba(0, 0, 0, 0.5),
     inset 0 0 20px rgba(255, 255, 255, 0.2);
-  padding: 6px 0;
+  padding: 4px 0;
   text-align: center;
   animation: prizePoolPulse 3s ease-in-out infinite;
-  margin-bottom: 8px;
+  margin-bottom: 5px;
 }
 
 .top-prize-pool .pool-display {
@@ -4269,7 +4267,7 @@ body {
 
 .pool-title {
   font-family: 'Press Start 2P', monospace;
-  font-size: 10px;
+  font-size: 8px;
   color: #FFD700;
   text-shadow: 
     0 0 10px #FFD700,
@@ -4289,7 +4287,7 @@ body {
 
 .pool-sol {
   font-family: 'Press Start 2P', monospace;
-  font-size: 14px;
+  font-size: 12px;
   color: #00FFE5;
   text-shadow: 
     0 0 15px #00FFE5,
@@ -4310,7 +4308,7 @@ body {
 
 .pool-usd {
   font-family: 'Press Start 2P', monospace;
-  font-size: 14px;
+  font-size: 12px;
   color: #32CD32;
   text-shadow: 
     0 0 15px #32CD32,
