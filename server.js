@@ -463,17 +463,17 @@ app.get('/health', (req, res) => {
 
 // Start server (local development only)
 if (process.env.NODE_ENV !== 'production') {
-    app.listen(PORT, () => {
-        console.log(`🚀 Casino API Server running on http://localhost:${PORT}`);
-        console.log(`🎰 Frontend should be on http://localhost:8000`);
-        console.log(`📊 Health check: http://localhost:${PORT}/health`);
-    });
-    
-    // Graceful shutdown
-    process.on('SIGINT', () => {
-        console.log('\n👋 Shutting down API server...');
-        process.exit(0);
-    });
+app.listen(PORT, () => {
+    console.log(`🚀 Casino API Server running on http://localhost:${PORT}`);
+    console.log(`🎰 Frontend should be on http://localhost:8000`);
+    console.log(`📊 Health check: http://localhost:${PORT}/health`);
+});
+
+// Graceful shutdown
+process.on('SIGINT', () => {
+    console.log('\n👋 Shutting down API server...');
+    process.exit(0);
+}); 
 }
 
 // Export for Vercel serverless deployment
