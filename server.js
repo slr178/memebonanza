@@ -16,7 +16,11 @@ app.use(cookieParser());
 // CORS configuration for production
 const corsOptions = {
     origin: process.env.NODE_ENV === 'production' 
-        ? [process.env.FRONTEND_URL || 'https://your-app-name.vercel.app']
+        ? [
+            'https://memebonanza-o8x7qoboe-slr178s-projects.vercel.app',
+            'https://memebonanza-gzpmqhb8f-slr178s-projects.vercel.app',
+            /\.vercel\.app$/  // Allow all Vercel subdomains
+          ]
         : ['http://localhost:8000', 'http://127.0.0.1:8000'],
     credentials: true
 };
