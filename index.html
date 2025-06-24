@@ -5213,9 +5213,48 @@
             }
         }
 
+        // ──────────────────────────────────────────────────────────────────────────
+        // WELCOME BANNER FUNCTIONALITY
+        // ──────────────────────────────────────────────────────────────────────────
+        
+        // Show welcome banner and handle close
+        document.addEventListener('DOMContentLoaded', function() {
+            const welcomeBanner = document.getElementById('welcome-banner');
+            const welcomeClose = document.getElementById('welcome-close');
+            
+            // Show banner if user hasn't seen it before
+            if (!localStorage.getItem('welcome-banner-closed')) {
+                setTimeout(() => {
+                    if (welcomeBanner) welcomeBanner.style.display = 'block';
+                }, 1000); // Show after 1 second
+            }
+            
+            // Handle close button
+            if (welcomeClose) {
+                welcomeClose.addEventListener('click', () => {
+                    if (welcomeBanner) {
+                        welcomeBanner.style.display = 'none';
+                        localStorage.setItem('welcome-banner-closed', 'true');
+                    }
+                });
+            }
+        });
+
     </script>
 
-    
+    <!-- ──────────────────────────────────────────────────────────────────────── -->
+    <!-- WELCOME INFO BANNER -->
+    <!-- ──────────────────────────────────────────────────────────────────────── -->
+    <div id="welcome-banner" class="welcome-banner" style="display: none;">
+        <div class="welcome-content">
+            <div class="welcome-icon">🎰</div>
+            <div class="welcome-text">
+                <h2>Welcome to Meme Bonanza!</h2>
+                <p>Meme Bonanza is a lottery website, based on the popular game Sweet Bonanza. The prizepool is funded by bonk creator rewards.</p>
+            </div>
+            <button id="welcome-close" class="welcome-close-btn">×</button>
+        </div>
+    </div>
 
     <!-- ──────────────────────────────────────────────────────────────────────── -->
     <!-- NOTIFICATION OVERLAY -->
@@ -5225,14 +5264,124 @@
             <div class="notification-icon">🎰</div>
             <div class="notification-title" id="notification-title">Notification</div>
             <div class="notification-message" id="notification-message">Message goes here</div>
-            <div class="notification-buttons">
+                        <div class="notification-buttons">
                 <button id="notification-close" class="notification-btn">OK</button>
             </div>
         </div>
-         </div>
+    </div>
 
-    <!-- Add CSS for user-balance-panel just below .left-panel styles -->
+    <!-- Add CSS for welcome banner and user-balance-panel -->
     <style>
+        /* ─────────────── WELCOME BANNER STYLES ─────────────── */
+        .welcome-banner {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            max-width: 600px;
+            width: 90%;
+            animation: slideDown 0.5s ease-out;
+        }
+
+        .welcome-content {
+            background: linear-gradient(135deg, #ff3ebf 0%, #74b9ff 100%);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 15px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .welcome-icon {
+            font-size: 2.5rem;
+            flex-shrink: 0;
+        }
+
+        .welcome-text {
+            flex: 1;
+            color: white;
+        }
+
+        .welcome-text h2 {
+            margin: 0 0 8px 0;
+            font-family: 'Press Start 2P', monospace;
+            font-size: 1.2rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .welcome-text p {
+            margin: 0;
+            font-family: "Poppins", sans-serif;
+            font-size: 0.95rem;
+            line-height: 1.4;
+            opacity: 0.95;
+        }
+
+        .welcome-close-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.2rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .welcome-close-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.1);
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateX(-50%) translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0);
+            }
+        }
+
+        /* Mobile responsiveness */
+        @media (max-width: 768px) {
+            .welcome-banner {
+                top: 10px;
+                width: 95%;
+            }
+            
+            .welcome-content {
+                padding: 15px;
+                gap: 10px;
+            }
+            
+            .welcome-text h2 {
+                font-size: 1rem;
+            }
+            
+            .welcome-text p {
+                font-size: 0.85rem;
+            }
+            
+            .welcome-icon {
+                font-size: 2rem;
+            }
+        }
+
         /* ─────────────── USER BALANCE PANEL ─────────────── */
         .user-balance-panel {
             background: rgba(0, 0, 0, 0.85);
@@ -5266,7 +5415,7 @@
         <p id="total-earned">0.000 SOL</p>
     </div>
 
-    <!-- Add JS: add after Firebase initialization but before functions -->
+    <!-- Additional user tracking script -->
     <script>
         let unsubscribeUserTotal = null;
         function subscribeToUserTotal(wallet){
@@ -5279,17 +5428,6 @@
                     earnedEl.textContent = total.toFixed(3)+' SOL';
                 });
         }
-
-        // In connectWallet success block, after updateWalletUI():
-        subscribeToUserTotal(userPublicKey);
-
-        // In disconnectWallet(), after resetting UI:
-        if(unsubscribeUserTotal){unsubscribeUserTotal();unsubscribeUserTotal=null;}
-        const earnedEl=document.getElementById('total-earned'); if(earnedEl) earnedEl.textContent='0.000 SOL';
-
-        // Modify recordWin function to increment userWinnings total
-        await db.collection("wins").add({...});
-        await db.collection('userWinnings').doc(userPublicKey).set({ total: firebase.firestore.FieldValue.increment(parseFloat(amount)) }, { merge: true });
     </script>
 </body>
 </html> 
