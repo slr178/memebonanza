@@ -59,6 +59,8 @@ body {
   flex-direction: column;
   animation: cuteBackgroundShift 10s ease-in-out infinite;
   font-size: 10px;
+  zoom: 0.7;
+  transform-origin: center center;
 }
 
 /* Cute background animation */
@@ -134,15 +136,15 @@ body,
 
 .perspective{
   width: 100%;
-  max-width: 500px;
-  margin-top: 15px;
-  transform: scale(0.45);
+  max-width: 400px;
+  margin-top: 10px;
+  transform: scale(0.3);
   animation: gentleFloat 4s ease-in-out infinite;
   position: relative; 
   display: flex;              /* lay out slot-container and side-payout-info side by side */
   flex-direction: row;        /* default, but make sure it's not overridden elsewhere */
   align-items: center;        /* vertically center both panels */
-  gap: 8px;                   /* reduced gap between reels and payouts */
+  gap: 6px;                   /* reduced gap between reels and payouts */
 }
 
 /* OLD CSS REMOVED - CONFLICTED WITH NEW STRUCTURE */
