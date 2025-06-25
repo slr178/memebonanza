@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Meme Bonanza</title>
-    
+
     <!-- Favicon -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎰</text></svg>">
     <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎰</text></svg>">
@@ -18,7 +18,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/Physics2DPlugin.min.js"></script>
 
     <!-- Link to updated styles.css -->
-    <link rel="stylesheet" href="styles.css?v=20250124-1820">
+    <link rel="stylesheet" href="styles.css?v=20250124-2020">
     
     <!-- Payouts Box Rework -->
     <style>
@@ -782,6 +782,13 @@
                 <div class="unCurtain"></div>
             </div>
             <div class="overlay">
+                <div class="casino-intro">
+                    <h1 class="intro-title">Welcome to Meme Bonanza</h1>
+                    <div class="intro-description">
+                        <p>Experience the first tokenized slot machine on Solana! Your token holdings determine your available spins, which refresh every hour automatically.</p>
+                        <p>All coin fees contribute directly to the community prize pool, creating bigger jackpots for everyone. Connect your wallet and start winning!</p>
+                    </div>
+                </div>
                 <a href="#" id="enter-casino-btn" class="neon-button">
                     <span></span>
                     <span></span>
@@ -795,61 +802,7 @@
 
     <!-- Main Casino Content (Initially Hidden) -->
     <div class="casino-content" id="casino-content" style="display: none;">
-        <!-- Left Panels Container -->
-        <div class="left-panels">
-            <!-- New Payout Request Panel -->
-            <div id="payout-panel" class="left-panel">
-                <h3>Payout Request</h3>
-                <form id="payout-form">
-                    <input type="number" id="payout-amount" step="0.001" placeholder="Amount (SOL)" />
-                    <button type="submit">Request</button>
-                </form>
-                <p id="payout-status"></p>
-            </div>
-            
-            <!-- Existing Payout Info Display -->
-            <div class="permanent-info left-panel">
-                <h3>🎰 Payout Info</h3>
-                <div class="symbol-list">
-                    <div class="symbol-info">
-                        <div class="symbol-icon s-symbol"></div>
-                        <span class="symbol-name">S (Common)</span>
-                        <span class="symbol-payout">0.001%</span>
-                    </div>
-                    <div class="symbol-info">
-                        <div class="symbol-icon o-symbol"></div>
-                        <span class="symbol-name">O (Common)</span>
-                        <span class="symbol-payout">0.002%</span>
-                    </div>
-                    <div class="symbol-info">
-                        <div class="symbol-icon l-symbol"></div>
-                        <span class="symbol-name">L (Common)</span>
-                        <span class="symbol-payout">0.005%</span>
-                    </div>
-                    <div class="symbol-info">
-                        <div class="symbol-icon trump-symbol"></div>
-                        <span class="symbol-name">Trump/Elon</span>
-                        <span class="symbol-payout">0.5%</span>
-                    </div>
-                    <div class="symbol-info">
-                        <div class="symbol-icon dog-symbol"></div>
-                        <span class="symbol-name">Dog/Cat</span>
-                        <span class="symbol-payout">1%</span>
-                    </div>
-                    <div class="symbol-info">
-                        <div class="symbol-icon pepe-symbol"></div>
-                        <span class="symbol-name">Pepe</span>
-                        <span class="symbol-payout">100%</span>
-                    </div>
-                </div>
-                <div class="rules-section">
-                    <p><strong>Win:</strong> 3+ consecutive columns</p>
-                    <p><strong>Multiplier:</strong> Total symbols ÷ 3</p>
-                    <p><strong>Cascades:</strong> 1 + (cascades-1) × 0.5</p>
-                    <p><strong>Win Rate:</strong> ~6.35%</p>
-                </div>
-            </div>
-        </div>
+
 
         <!-- Audio Elements -->
         <audio id="background-music" loop>
@@ -883,52 +836,59 @@
 
 
 
-        <!-- ─── TOP BAR: Prize Pool + Connect Wallet ─── -->
-<div class="top-prize-wallet-bar">
+ 
+
+        <!-- ─── NEW TOP BAR: Prize Pool + Connect Wallet (Above Meme Bonanza) ─── -->
+        <div class="new-top-bar">
   <!-- Prize Pool -->
     <div class="pool-display">
-        <div class="pool-title">💰 PRIZE POOL 💰</div>
+                <div class="pool-title">PRIZE POOL</div>
         <div class="pool-amounts">
-            <span class="pool-sol"><span id="top-pool-amount">300</span> SOL</span>
+                    <span class="pool-sol"><span id="new-top-pool-amount">100</span> SOL</span>
             <span class="pool-divider">≈</span>
-            <span class="pool-usd">$<span id="top-pool-usd">45,000</span></span>
+                    <span class="pool-usd">$<span id="new-top-pool-usd">15,000</span></span>
         </div>
     </div>
+  
+  <!-- Funding Wallet Display -->
+  <div class="funding-wallet-display">
+    <div class="funding-title">Funding Wallet:</div>
+    <a href="https://solscan.io/account/GggpX3Rr1WTTwiUfePbcbCEJXPS2M7vfeuG9qJM4KTpa" target="_blank" class="funding-address">GggpX3Rr1WTTwiUfePbcbCEJXPS2M7vfeuG9qJM4KTpa</a>
+  </div>
+  
   <!-- Connect Wallet -->
     <div class="wallet-section">
-        <button id="connect-wallet-btn" class="wallet-btn">
-            <span class="wallet-icon">👤</span>
+                <button id="new-connect-wallet-btn" class="wallet-btn">
             <span class="wallet-text">Connect Wallet</span>
         </button>
-        <div id="wallet-info" class="wallet-info" style="display: none;">
-            <div class="wallet-address" id="wallet-address"></div>
+                <div id="new-wallet-info" class="wallet-info" style="display: none;">
+                    <div class="wallet-address" id="new-wallet-address"></div>
       <!-- Show balances -->
       <div class="token-balance">
         <span class="label">SOL Balance:</span>
-        <span id="sol-balance">0.000000</span>
+                <span id="new-sol-balance">0.000000</span>
       </div>
       <div class="token-balance">
         <span class="label">Token Balance:</span>
-        <span id="token-balance">0</span>
+                <span id="new-token-balance">0</span>
       </div>
       <!-- Show how many spins remain -->
       <div class="spin-count">
         <span class="label">Spins:</span>
-        <span id="available-spins">0</span>
+                <span id="new-available-spins">0</span>
       </div>
       <!-- Show total earnings -->
       <div class="total-earnings">
         <span class="label">Total Earned:</span>
-        <span id="total-earnings">0</span> SOL
+                <span id="new-total-earnings">0</span> SOL
       </div>
       <!-- Show refresh timer -->
       <div class="refresh-timer">
         <span class="label">Next Refresh:</span>
-        <span id="refresh-timer">--</span>
+                <span id="new-refresh-timer">--</span>
       </div>
       <!-- Disconnect wallet button -->
-      <button id="disconnect-wallet-btn" class="disconnect-wallet-btn">
-        <span class="wallet-icon">🚪</span>
+              <button id="new-disconnect-wallet-btn" class="disconnect-wallet-btn">
         <span class="wallet-text">Disconnect</span>
       </button>
     </div>
@@ -1359,13 +1319,11 @@
         </div><!-- /.arcade-monitor -->
         </div><!-- /.slot-focus-container -->
 
-        <!-- ─── NAVIGATION MENU ─── -->
-        <nav class="main-navigation">
+        <!-- ─── NEW NAVIGATION BAR (Below Meme Bonanza) ─── -->
+        <nav class="new-navigation">
             <div class="nav-container">
                 <a href="index.html" class="nav-link active">🎰 Play</a>
-                <a href="how-it-works.html" class="nav-link">📖 How It Works</a>
-                <a href="faq.html" class="nav-link">❓ FAQ</a>
-                <a href="results.html" class="nav-link">📊 Results</a>
+                <a href="#" class="nav-link" id="how-it-works-btn">📖 How It Works</a>
             </div>
         </nav>
     </div>
@@ -1437,6 +1395,16 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <!-- Simple How it Works Popup -->
+    <div class="how-it-works-popup" id="how-it-works-popup">
+        <div class="popup-content">
+            <button class="popup-close" id="close-how-it-works">&times;</button>
+            <h2>Welcome to Meme Bonanza</h2>
+            <p>Experience the first tokenized slot machine on Solana! Your token holdings determine your available spins, which refresh every hour automatically.</p>
+            <p>All coin fees contribute directly to the community prize pool, creating bigger jackpots for everyone. Connect your wallet and start winning!</p>
         </div>
     </div>
 
@@ -3381,6 +3349,20 @@
                     landingScreen.style.display = 'none';
                     casinoContent.style.display = 'block';
                     
+                    // Show the panels when entering casino
+                    const userBalancePanel = document.getElementById('user-balance-panel');
+                    const newPayoutPanel = document.getElementById('new-payout-panel');
+                    
+                    if (userBalancePanel) {
+                        userBalancePanel.style.display = 'block';
+                        console.log('✅ User balance panel shown');
+                    }
+                    
+                    if (newPayoutPanel) {
+                        newPayoutPanel.style.display = 'block';
+                        console.log('✅ New payout panel shown');
+                    }
+                    
                     // Initialize slot machine after entering casino
                     initializeSlots();
                     
@@ -3464,34 +3446,88 @@
     // INFO MODAL FUNCTIONALITY
     document.addEventListener('DOMContentLoaded', function() {
         const infoButton = document.getElementById('info-button');
+        const howItWorksBtn = document.getElementById('how-it-works-btn');
         const infoModal = document.getElementById('info-modal');
         const closeButton = document.getElementById('close-info');
+        
+        // How it Works Popup Elements
+        const howItWorksPopup = document.getElementById('how-it-works-popup');
+        const closeHowItWorksBtn = document.getElementById('close-how-it-works');
 
-        // Open modal when info button is clicked
-        infoButton.addEventListener('click', function() {
+        // Function to open info modal
+        function openInfoModal() {
             infoModal.style.display = 'block';
             document.body.style.overflow = 'hidden'; // Prevent background scrolling
-        });
+        }
 
-        // Close modal when X button is clicked
-        closeButton.addEventListener('click', function() {
+        // Function to close info modal
+        function closeInfoModal() {
             infoModal.style.display = 'none';
             document.body.style.overflow = 'auto'; // Restore scrolling
-        });
+        }
 
-        // Close modal when clicking outside the content area
-        infoModal.addEventListener('click', function(event) {
-            if (event.target === infoModal) {
-                infoModal.style.display = 'none';
-                document.body.style.overflow = 'auto'; // Restore scrolling
-            }
-        });
+        // Function to open How it Works popup
+        function openHowItWorksPopup() {
+            howItWorksPopup.classList.add('show');
+            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+        }
 
-        // Close modal when pressing Escape key
+        // Function to close How it Works popup
+        function closeHowItWorksPopup() {
+            howItWorksPopup.classList.remove('show');
+            document.body.style.overflow = 'auto'; // Restore scrolling
+        }
+
+        // Open modal when info button is clicked
+        if (infoButton) {
+            infoButton.addEventListener('click', openInfoModal);
+        }
+
+        // Open simple popup when "How it Works" nav button is clicked
+        if (howItWorksBtn) {
+            howItWorksBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                openHowItWorksPopup();
+            });
+        }
+
+        // Close info modal when X button is clicked
+        if (closeButton) {
+            closeButton.addEventListener('click', closeInfoModal);
+        }
+
+        // Close How it Works popup when X button is clicked
+        if (closeHowItWorksBtn) {
+            closeHowItWorksBtn.addEventListener('click', closeHowItWorksPopup);
+        }
+
+        // Close info modal when clicking outside the content area
+        if (infoModal) {
+            infoModal.addEventListener('click', function(event) {
+                if (event.target === infoModal) {
+                    closeInfoModal();
+                }
+            });
+        }
+
+        // Close How it Works popup when clicking outside the content area
+        if (howItWorksPopup) {
+            howItWorksPopup.addEventListener('click', function(event) {
+                if (event.target === howItWorksPopup) {
+                    closeHowItWorksPopup();
+                }
+            });
+        }
+
+        // Close modals/popups when pressing Escape key
         document.addEventListener('keydown', function(event) {
-            if (event.key === 'Escape' && infoModal.style.display === 'block') {
-                infoModal.style.display = 'none';
-                document.body.style.overflow = 'auto'; // Restore scrolling
+            if (event.key === 'Escape') {
+                if (infoModal && infoModal.style.display === 'block') {
+                    closeInfoModal();
+                }
+                if (howItWorksPopup && howItWorksPopup.classList.contains('show')) {
+                    closeHowItWorksPopup();
+                }
             }
         });
     });
@@ -4730,11 +4766,25 @@
         function updateWalletUI() {
             if (isWalletConnected) {
                 const shortAddress = userPublicKey.slice(0, 6) + "..." + userPublicKey.slice(-4);
+                
+                // Update old wallet UI elements
                 if (walletAddressSpan) walletAddressSpan.textContent = shortAddress;
                 if (walletInfo) walletInfo.style.display = "block";
                 if (connectWalletBtn) {
                     connectWalletBtn.innerHTML = '<span class="wallet-icon">✅</span><span class="wallet-text">Connected</span>';
                     connectWalletBtn.disabled = true;
+                }
+                
+                // Update new wallet UI elements
+                const newWalletAddress = document.getElementById('new-wallet-address');
+                const newWalletInfo = document.getElementById('new-wallet-info');
+                const newConnectWalletBtn = document.getElementById('new-connect-wallet-btn');
+                
+                if (newWalletAddress) newWalletAddress.textContent = shortAddress;
+                if (newWalletInfo) newWalletInfo.style.display = "block";
+                if (newConnectWalletBtn) {
+                    newConnectWalletBtn.innerHTML = '<span class="wallet-text">Connected</span>';
+                    newConnectWalletBtn.disabled = true;
                 }
             }
         }
@@ -4812,6 +4862,37 @@
                     }
                 }
                 
+                // Update NEW wallet UI elements
+                const newSolBalanceSpan = document.getElementById('new-sol-balance');
+                if (newSolBalanceSpan) {
+                    newSolBalanceSpan.textContent = balanceData.sol.toFixed(6);
+                }
+                
+                const newTokenBalanceSpan = document.getElementById('new-token-balance');
+                if (newTokenBalanceSpan) {
+                    newTokenBalanceSpan.textContent = totalBalance.toLocaleString();
+                }
+                
+                const newAvailableSpinsSpan = document.getElementById('new-available-spins');
+                if (newAvailableSpinsSpan) newAvailableSpinsSpan.textContent = availableSpins;
+                
+                const newTotalEarningsSpan = document.getElementById('new-total-earnings');
+                if (newTotalEarningsSpan) {
+                    newTotalEarningsSpan.textContent = (spinData.totalEarnings || 0).toFixed(6);
+                }
+                
+                const newRefreshTimerSpan = document.getElementById('new-refresh-timer');
+                if (newRefreshTimerSpan) {
+                    const hoursUntilRefresh = spinData.hoursUntilRefresh || 0;
+                    if (hoursUntilRefresh > 0) {
+                        const hours = Math.floor(hoursUntilRefresh);
+                        const minutes = Math.floor((hoursUntilRefresh - hours) * 60);
+                        newRefreshTimerSpan.textContent = `${hours}h ${minutes}m`;
+                    } else {
+                        newRefreshTimerSpan.textContent = "Ready!";
+                    }
+                }
+                
                 console.log(`💰 SOL: ${balanceData.sol?.toFixed(6)}, Tokens: ${totalBalance.toLocaleString()}, Spins: ${availableSpins}, Earnings: ${spinData.totalEarnings?.toFixed(6)}`);
 
             } catch (error) {
@@ -4835,6 +4916,14 @@
                 }
                 availableSpins = 5;
                 if (availableSpinsSpan) availableSpinsSpan.textContent = availableSpins;
+                
+                // Update NEW elements with demo values too
+                const newTokenBalanceSpan = document.getElementById('new-token-balance');
+                if (newTokenBalanceSpan) {
+                    newTokenBalanceSpan.textContent = "500,000";
+                }
+                const newAvailableSpinsSpan = document.getElementById('new-available-spins');
+                if (newAvailableSpinsSpan) newAvailableSpinsSpan.textContent = availableSpins;
             }
         }
 
@@ -4891,6 +4980,12 @@
                     totalEarningsSpan.textContent = result.totalEarnings.toFixed(6);
                 }
                 
+                // Update NEW total earnings display
+                const newTotalEarningsSpan = document.getElementById('new-total-earnings');
+                if (newTotalEarningsSpan) {
+                    newTotalEarningsSpan.textContent = result.totalEarnings.toFixed(6);
+                }
+                
                 console.log(`💰 Recorded +${solAmount} SOL, total: ${result.totalEarnings.toFixed(6)}`);
             } catch (error) {
                 console.error("❌ Error recording winnings:", error);
@@ -4919,7 +5014,7 @@
                 refreshTimerInterval = null;
             }
             
-            // Reset UI
+            // Reset old UI elements
             if (walletInfo) walletInfo.style.display = "none";
             if (connectWalletBtn) {
                 connectWalletBtn.innerHTML = '<span class="wallet-icon">👻</span><span class="wallet-text">Authenticate Wallet</span>';
@@ -4928,12 +5023,34 @@
             if (availableSpinsSpan) availableSpinsSpan.textContent = "0";
             if (walletAddressSpan) walletAddressSpan.textContent = "";
             
-            // Clear additional UI elements
+            // Clear additional old UI elements
             const totalEarningsSpan = document.getElementById('total-earnings');
             if (totalEarningsSpan) totalEarningsSpan.textContent = "0";
             
             const refreshTimerSpan = document.getElementById('refresh-timer');
             if (refreshTimerSpan) refreshTimerSpan.textContent = "--";
+            
+            // Reset NEW UI elements
+            const newWalletInfo = document.getElementById('new-wallet-info');
+            const newConnectWalletBtn = document.getElementById('new-connect-wallet-btn');
+            const newWalletAddress = document.getElementById('new-wallet-address');
+            const newAvailableSpinsSpan = document.getElementById('new-available-spins');
+            const newSolBalanceSpan = document.getElementById('new-sol-balance');
+            const newTokenBalanceSpan = document.getElementById('new-token-balance');
+            const newTotalEarningsSpan = document.getElementById('new-total-earnings');
+            const newRefreshTimerSpan = document.getElementById('new-refresh-timer');
+            
+            if (newWalletInfo) newWalletInfo.style.display = "none";
+            if (newConnectWalletBtn) {
+                newConnectWalletBtn.innerHTML = '<span class="wallet-text">Connect Wallet</span>';
+                newConnectWalletBtn.disabled = false;
+            }
+            if (newWalletAddress) newWalletAddress.textContent = "";
+            if (newAvailableSpinsSpan) newAvailableSpinsSpan.textContent = "0";
+            if (newSolBalanceSpan) newSolBalanceSpan.textContent = "0.000000";
+            if (newTokenBalanceSpan) newTokenBalanceSpan.textContent = "0";
+            if (newTotalEarningsSpan) newTotalEarningsSpan.textContent = "0";
+            if (newRefreshTimerSpan) newRefreshTimerSpan.textContent = "--";
             
             console.log("👋 Wallet disconnected");
         }
@@ -5010,6 +5127,15 @@
             console.warn("⚠️ [Crypto] Connect wallet button not found - wallet connection disabled");
         }
 
+        // NEW Connect wallet button event listener
+        const newConnectWalletBtn = document.getElementById('new-connect-wallet-btn');
+        if (newConnectWalletBtn) {
+            newConnectWalletBtn.addEventListener('click', connectWallet);
+            console.log("✅ [Crypto] New connect wallet button found and connected");
+        } else {
+            console.warn("⚠️ [Crypto] New connect wallet button not found");
+        }
+
         // Disconnect wallet button event listener
         const disconnectWalletBtn = document.getElementById('disconnect-wallet-btn');
         if (disconnectWalletBtn) {
@@ -5024,6 +5150,23 @@
                 disconnectWalletBtn.innerHTML = '<span class="wallet-icon">🚪</span><span class="wallet-text">Disconnect</span>';
                 disconnectWalletBtn.disabled = false;
             });
+        }
+
+        // NEW Disconnect wallet button event listener
+        const newDisconnectWalletBtn = document.getElementById('new-disconnect-wallet-btn');
+        if (newDisconnectWalletBtn) {
+            newDisconnectWalletBtn.addEventListener('click', async () => {
+                // Show confirmation feedback
+                newDisconnectWalletBtn.innerHTML = '<span class="wallet-text">Disconnecting...</span>';
+                newDisconnectWalletBtn.disabled = true;
+                
+                await disconnectWallet();
+                
+                // Reset button state (though it should be hidden by now)
+                newDisconnectWalletBtn.innerHTML = '<span class="wallet-text">Disconnect</span>';
+                newDisconnectWalletBtn.disabled = false;
+            });
+            console.log("✅ [Crypto] New disconnect wallet button found and connected");
         }
 
         // Check for existing session on page load
@@ -5132,45 +5275,58 @@
         // ──────────────────────────────────────────────────────────────────────────
 
         function initializePayoutRequest() {
+            // Initialize both old and new payout forms
             const payoutForm = document.getElementById('payout-form');
             const payoutAmount = document.getElementById('payout-amount');
             const payoutStatus = document.getElementById('payout-status');
 
-            if (!payoutForm || !payoutAmount || !payoutStatus) {
-                console.warn("⚠️ Payout request elements not found");
-                return;
+            const newPayoutForm = document.getElementById('new-payout-form');
+            const newPayoutAmount = document.getElementById('new-payout-amount');
+            const newPayoutStatus = document.getElementById('new-payout-status');
+
+            if (newPayoutForm && newPayoutAmount && newPayoutStatus) {
+                console.log("✅ New payout request elements found");
+                setupPayoutForm(newPayoutForm, newPayoutAmount, newPayoutStatus);
             }
 
-            payoutForm.addEventListener('submit', async (e) => {
+            if (payoutForm && payoutAmount && payoutStatus) {
+                console.log("✅ Old payout request elements found");
+                setupPayoutForm(payoutForm, payoutAmount, payoutStatus);
+            }
+        }
+        
+        function setupPayoutForm(form, amountInput, statusElement) {
+
+            form.addEventListener('submit', async (e) => {
                 e.preventDefault();
                 
-                const amount = parseFloat(payoutAmount.value);
+                const amount = parseFloat(amountInput.value);
                 
                 // Validation
                 if (!isWalletConnected) {
-                    showPayoutStatus('Please connect your wallet first', 'error');
+                    showPayoutStatusForElement(statusElement, 'Please connect your wallet first', 'error');
                     return;
                 }
                 
                 if (!amount || amount <= 0) {
-                    showPayoutStatus('Please enter a valid amount', 'error');
+                    showPayoutStatusForElement(statusElement, 'Please enter a valid amount', 'error');
                     return;
                 }
                 
                 if (amount < 0.001) {
-                    showPayoutStatus('Minimum payout is 0.001 SOL', 'error');
+                    showPayoutStatusForElement(statusElement, 'Minimum payout is 0.001 SOL', 'error');
                     return;
                 }
                 
                 // Check if user has enough winnings (this would need to track actual winnings)
                 const currentWinnings = runningSolTotal || 0;
                 if (amount > currentWinnings) {
-                    showPayoutStatus(`Insufficient winnings. You have ${currentWinnings.toFixed(6)} SOL`, 'error');
+                    showPayoutStatusForElement(statusElement, `Insufficient winnings. You have ${currentWinnings.toFixed(6)} SOL`, 'error');
                     return;
                 }
                 
                 // Process payout request
-                await processPayoutRequest(amount);
+                await processPayoutRequestForElement(amount, amountInput, statusElement);
             });
         }
 
@@ -5185,6 +5341,19 @@
             setTimeout(() => {
                 payoutStatus.textContent = '';
                 payoutStatus.className = '';
+            }, 5000);
+        }
+
+        function showPayoutStatusForElement(statusElement, message, type = 'pending') {
+            if (!statusElement) return;
+            
+            statusElement.textContent = message;
+            statusElement.className = type;
+            
+            // Auto-clear after 5 seconds
+            setTimeout(() => {
+                statusElement.textContent = '';
+                statusElement.className = '';
             }, 5000);
         }
 
@@ -5218,6 +5387,258 @@
             }
         }
 
+        async function processPayoutRequestForElement(amount, amountInput, statusElement) {
+            try {
+                showPayoutStatusForElement(statusElement, 'Processing payout request...', 'pending');
+                const wallet = userPublicKey;
+                console.log('📤 Submitting payout request:', { wallet, amount });
+                // Save request to Firestore
+                let ref = null;
+                if (db && wallet) {
+                    ref = await db.collection("payoutRequests").add({
+                        wallet: wallet,
+                        amount: amount,
+                        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+                        fulfilled: false
+                    });
+                    console.log('✅ Payout request saved with ID:', ref.id);
+                }
+                // Deduct from running totals
+                runningSolTotal = Math.max(0, runningSolTotal - amount);
+                runningUsdTotal = Math.max(0, runningUsdTotal - (amount * (currentSolPriceUsd || 150)));
+                $('#counter-sol').text(runningSolTotal.toFixed(6));
+                $('#counter-usd').text(runningUsdTotal.toFixed(2));
+                amountInput.value = '';
+                showPayoutStatusForElement(statusElement, `✅ Payout request submitted: ${amount} SOL`, 'success');
+                showNotification('Payout Requested!', `Your request for ${amount} SOL has been submitted and will be processed within 24 hours.`, '💰', 'success');
+            } catch (error) {
+                console.error('❌ Error submitting payout request:', error);
+                showPayoutStatusForElement(statusElement, 'Payout request failed. Please try again.', 'error');
+            }
+        }
+
+        // ──────────────────────────────────────────────────────────────────────────
+        // DRAGGABLE NAVIGATION BAR FUNCTIONALITY
+        // ──────────────────────────────────────────────────────────────────────────
+        
+        function initializeDraggableNavigation() {
+            const nav = document.querySelector('.new-navigation');
+            if (!nav) return;
+            
+            let isDragging = false;
+            let currentX;
+            let currentY;
+            let initialX;
+            let initialY;
+            let xOffset = 0;
+            let yOffset = 0;
+            
+            // Load saved position
+            const savedPosition = localStorage.getItem('nav-position');
+            if (savedPosition) {
+                const { x, y } = JSON.parse(savedPosition);
+                nav.style.left = x + 'px';
+                nav.style.top = y + 'px';
+                xOffset = x;
+                yOffset = y;
+            }
+            
+            nav.addEventListener('mousedown', dragStart);
+            nav.addEventListener('touchstart', dragStart);
+            
+            document.addEventListener('mousemove', drag);
+            document.addEventListener('touchmove', drag);
+            
+            document.addEventListener('mouseup', dragEnd);
+            document.addEventListener('touchend', dragEnd);
+            
+            function dragStart(e) {
+                if (e.type === "touchstart") {
+                    initialX = e.touches[0].clientX - xOffset;
+                    initialY = e.touches[0].clientY - yOffset;
+                } else {
+                    initialX = e.clientX - xOffset;
+                    initialY = e.clientY - yOffset;
+                }
+                
+                if (e.target === nav || nav.contains(e.target)) {
+                    isDragging = true;
+                    nav.classList.add('dragging');
+                }
+            }
+            
+            function drag(e) {
+                if (isDragging) {
+                    e.preventDefault();
+                    
+                    if (e.type === "touchmove") {
+                        currentX = e.touches[0].clientX - initialX;
+                        currentY = e.touches[0].clientY - initialY;
+                    } else {
+                        currentX = e.clientX - initialX;
+                        currentY = e.clientY - initialY;
+                    }
+                    
+                    xOffset = currentX;
+                    yOffset = currentY;
+                    
+                    // Keep navigation within viewport bounds
+                    const rect = nav.getBoundingClientRect();
+                    const maxX = window.innerWidth - rect.width;
+                    const maxY = window.innerHeight - rect.height;
+                    
+                    xOffset = Math.max(0, Math.min(xOffset, maxX));
+                    yOffset = Math.max(0, Math.min(yOffset, maxY));
+                    
+                    nav.style.left = xOffset + 'px';
+                    nav.style.top = yOffset + 'px';
+                }
+            }
+            
+            function dragEnd() {
+                initialX = currentX;
+                initialY = currentY;
+                
+                isDragging = false;
+                nav.classList.remove('dragging');
+                
+                // Save position to localStorage
+                localStorage.setItem('nav-position', JSON.stringify({
+                    x: xOffset,
+                    y: yOffset
+                }));
+            }
+            
+            // Add visual hint that it's draggable
+            nav.title = "Drag to move this navigation bar anywhere on screen";
+        }
+
+        // ──────────────────────────────────────────────────────────────────────────
+        // DRAGGABLE PANELS FUNCTIONALITY
+        // ──────────────────────────────────────────────────────────────────────────
+        
+        function initializeDraggablePanels() {
+            // Add debug logging
+            console.log('🔧 Initializing draggable panels...');
+            
+            const payoutPanel = document.getElementById('payout-panel');
+            const userBalancePanel = document.getElementById('user-balance-panel');
+            
+            console.log('📋 Payout panel found:', !!payoutPanel);
+            console.log('📋 User balance panel found:', !!userBalancePanel);
+            
+            const newPayoutPanel = document.getElementById('new-payout-panel');
+            
+            console.log('📋 New payout panel found:', !!newPayoutPanel);
+            
+            const panels = [
+                { element: newPayoutPanel, storageKey: 'new-payout-panel-position', name: 'new-payout-panel' }
+            ];
+            
+            panels.forEach(({ element: panel, storageKey, name }) => {
+                if (!panel) {
+                    console.warn(`⚠️ Panel ${name} not found`);
+                    return;
+                }
+                
+                console.log(`✅ Setting up draggable for ${name}`);
+                
+                // Force the panel to be visible and positioned
+                panel.style.display = 'block';
+                panel.style.visibility = 'visible';
+                
+                let isDragging = false;
+                let currentX;
+                let currentY;
+                let initialX;
+                let initialY;
+                let xOffset = 0;
+                let yOffset = 0;
+                
+                // Load saved position
+                const savedPosition = localStorage.getItem(storageKey);
+                if (savedPosition) {
+                    const { x, y } = JSON.parse(savedPosition);
+                    panel.style.left = x + 'px';
+                    panel.style.top = y + 'px';
+                    xOffset = x;
+                    yOffset = y;
+                }
+                
+                panel.addEventListener('mousedown', dragStart);
+                panel.addEventListener('touchstart', dragStart);
+                
+                document.addEventListener('mousemove', drag);
+                document.addEventListener('touchmove', drag);
+                
+                document.addEventListener('mouseup', dragEnd);
+                document.addEventListener('touchend', dragEnd);
+                
+                function dragStart(e) {
+                    console.log(`🔥 Drag start on ${name}`, e.target);
+                    
+                    if (e.type === "touchstart") {
+                        initialX = e.touches[0].clientX - xOffset;
+                        initialY = e.touches[0].clientY - yOffset;
+                    } else {
+                        initialX = e.clientX - xOffset;
+                        initialY = e.clientY - yOffset;
+                    }
+                    
+                    if (e.target === panel || panel.contains(e.target)) {
+                        console.log(`🚀 Starting drag for ${name}`);
+                        isDragging = true;
+                        panel.classList.add('dragging');
+                    }
+                }
+                
+                function drag(e) {
+                    if (isDragging) {
+                        e.preventDefault();
+                        
+                        if (e.type === "touchmove") {
+                            currentX = e.touches[0].clientX - initialX;
+                            currentY = e.touches[0].clientY - initialY;
+                        } else {
+                            currentX = e.clientX - initialX;
+                            currentY = e.clientY - initialY;
+                        }
+                        
+                        xOffset = currentX;
+                        yOffset = currentY;
+                        
+                        // Keep panel within viewport bounds
+                        const rect = panel.getBoundingClientRect();
+                        const maxX = window.innerWidth - rect.width;
+                        const maxY = window.innerHeight - rect.height;
+                        
+                        xOffset = Math.max(0, Math.min(xOffset, maxX));
+                        yOffset = Math.max(0, Math.min(yOffset, maxY));
+                        
+                        panel.style.left = xOffset + 'px';
+                        panel.style.top = yOffset + 'px';
+                    }
+                }
+                
+                function dragEnd() {
+                    initialX = currentX;
+                    initialY = currentY;
+                    
+                    isDragging = false;
+                    panel.classList.remove('dragging');
+                    
+                    // Save position to localStorage
+                    localStorage.setItem(storageKey, JSON.stringify({
+                        x: xOffset,
+                        y: yOffset
+                    }));
+                }
+                
+                // Add visual hint that it's draggable
+                panel.title = "Drag to move this panel anywhere on screen";
+            });
+        }
+
         // ──────────────────────────────────────────────────────────────────────────
         // WELCOME BANNER FUNCTIONALITY
         // ──────────────────────────────────────────────────────────────────────────
@@ -5243,6 +5664,14 @@
                     }
                 });
             }
+            
+            // Navigation is now fixed at specific coordinates
+            // initializeDraggableNavigation(); // Disabled - navigation is now fixed
+            
+            // Panels are now fixed at specific coordinates - no dragging needed
+            // setTimeout(() => {
+            //     initializeDraggablePanels();
+            // }, 1000);
         });
 
     </script>
@@ -5269,11 +5698,11 @@
             <div class="notification-icon">🎰</div>
             <div class="notification-title" id="notification-title">Notification</div>
             <div class="notification-message" id="notification-message">Message goes here</div>
-                        <div class="notification-buttons">
+            <div class="notification-buttons">
                 <button id="notification-close" class="notification-btn">OK</button>
             </div>
         </div>
-    </div>
+         </div>
 
     <!-- Add CSS for welcome banner and user-balance-panel -->
     <style>
@@ -5414,10 +5843,20 @@
         }
     </style>
 
-    <!-- Add HTML inside left-panels before payout-panel -->
+    <!-- Add draggable panels -->
     <div id="user-balance-panel" class="user-balance-panel">
-        <h3>💰 Total Earned</h3>
+        <h3>Total Earned</h3>
         <p id="total-earned">0.000 SOL</p>
+    </div>
+
+    <!-- New Draggable Payout Request Panel -->
+    <div id="new-payout-panel">
+        <h3>Payout Request</h3>
+        <form id="new-payout-form">
+            <input type="number" id="new-payout-amount" step="0.001" placeholder="Amount (SOL)" />
+            <button type="submit">Request Payout</button>
+        </form>
+        <p id="new-payout-status"></p>
     </div>
 
     <!-- Additional user tracking script -->
@@ -5434,5 +5873,5 @@
                 });
         }
     </script>
-</body>
+ </body>
 </html> 
